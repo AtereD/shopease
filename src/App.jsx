@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState } from "react";
+import { Routes, Router } from "react-router-dom";
+import Home from "./pages/Home";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <main className='text-amber-300'>
-      Hello World
-    </main>
-  )
+    <div>
+    <Home/>
+    </div>
+  );
 }
 
-export default App
+export default App;
