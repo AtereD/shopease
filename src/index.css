@@ -12,19 +12,21 @@
    --color-muted-grey: #777777;
    --color-border: #e8e8ec;
 
-     --font-display: "Inter", sans-serif;
-     --font-heading: "Manrope", sans-serif;
+   --font-display: "Inter", sans-serif;
+   --font-heading: "Manrope", sans-serif;
+
+   --breakpoint-md: 640px;
 }
 
 
 body {
   margin: 0;
+  font-family: var(--font-display);
 }
 
 h1,
 h2 {
   font-family: var(--font-heading);
-  font-weight: 600;
 }
 
 .hero {
