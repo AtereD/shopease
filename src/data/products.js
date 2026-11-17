@@ -89,7 +89,7 @@ export const productData = [
   },
    {
     id: 9,
-    name: "Biocule Super Cool Serum",
+    name: "Biocule Just Bloom Super Serum",
     category: "Beauty & Personal Care",
     price: 30000,
     oldPrice: 35000,

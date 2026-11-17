@@ -1,7 +1,9 @@
-// import { productData } from "../data/products";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useContext(CartContext)
   return (
     <div className="rounded-2xl overflow-hidden border border-border flex flex-col h-full">
       <div className="relative lg:overflow-hidden lg:h-60 h-45">
@@ -65,7 +67,7 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-        <button className="btn primary-btn flex items-center justify-center gap-2 mt-auto">
+        <button className="btn primary-btn flex items-center justify-center gap-2 mt-auto" onClick={()=> addToCart(product)} type="button">
           Add to Cart <ShoppingCart />
         </button>
       </div>

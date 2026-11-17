@@ -15,13 +15,18 @@
    --font-display: "Inter", sans-serif;
    --font-heading: "Manrope", sans-serif;
 
-   --breakpoint-md: 640px;
+   --breakpoint-sm: 420px;
+   --breakpoint-md: 768px;
+   --breakpoint-lg: 1024px;
+   --breakpoint-xl: 1440px;
+
 }
 
 
 body {
   margin: 0;
   font-family: var(--font-display);
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -51,14 +56,14 @@ h2 {
 
 @layer components {
   .btn {
-    @apply md:px-6 py-3 px-4 rounded-lg text-center  flex items-center font-semibold justify-center text-sm ;
+    @apply md:px-6 py-3 px-4 rounded-lg text-center  flex items-center font-semibold justify-center text-sm transition-all ease-in-out duration-500 ;
   }
  .primary-btn {
-  @apply bg-electric-blue text-white ;
+  @apply bg-electric-blue text-white hover:bg-[#263fb5] ;
  }
 
  .secondary-btn {
-  @apply text-white border-muted-grey border ;
+  @apply text-white border-muted-grey border hover:shadow-[0_4px_12px_rgba(52,82,217,0.2)] hover:bg-white hover:text-electric-blue ;
  }
 }
 

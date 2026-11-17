@@ -20,7 +20,7 @@ const CategorySection = () => {
                         category.name === "Electronics" ? "md:col-span-2" : ""
                         }
                     `}>
-                        <img src={category.imgUrl} className="w-full h-60 xl:h-68 object-cover transition-transform duration-300 group-hover:scale-105" alt={category.name}/>
+                        <img src={category.imgUrl} className="w-full h-50 xl:h-68 object-cover transition-transform duration-300 group-hover:scale-105" alt={category.name}/>
                         <div className="p-5 text-center text-sm">
                             <h3 className="text-xl font-semibold">{category.name}</h3>
                             <p>{category.description}</p>
