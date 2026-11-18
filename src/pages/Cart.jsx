@@ -3,7 +3,8 @@ import { CartContext } from "../context/CartContext";
 import QuantitySelector from "../components/QuantitySelector";
 import { Link } from "react-router-dom";
 
-import { ChevronRight, ShoppingCart, Trash, Lock, ArrowLeftIcon } from "lucide-react";
+import { ChevronRight, ShoppingCart, Trash, ArrowLeftIcon } from "lucide-react";
+import OrderSummary from "../components/OrderSummary";
 
 const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart } = useContext(CartContext);
@@ -40,9 +41,9 @@ const Cart = () => {
           </Link>
         </div>
       ) : (
-        <div className=" flex flex-col md:flex-row gap-10 md:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:grid-cols-2">
           {/* DESKTOP CART */}
-          <div className="overflow-x-auto hidden md:block">
+          <div className="overflow-x-auto hidden md:block lg:col-span-2 rounded-xl">
             <table className="w-full min-w-162.5 border border-border rounded-xl">
               <thead className="bg-soft-grey">
                 <tr>
@@ -196,32 +197,7 @@ const Cart = () => {
 
 
             {/* Order Summary */}
-          <div className="border border-border rounded-xl px-5 py-4 md:w-100 lg:w-75">
-            <h2 className="font-bold text-charcoal text-lg">Order Summary</h2>
-            <div className="flex flex-col gap-3 border-b border-border py-4">
-              <div className="flex justify-between items-center">
-                <h4 className="font-medium">Subtotal</h4>
-                <p className="font-semibold">N868.00</p>
-              </div>
-              <div className="flex justify-between items-center">
-                <h4 className="font-medium">Shipping</h4>
-                <p className="text-electric-blue font-semibold">Free</p>
-              </div>
-            </div>
-            <div className="flex flex-col border-b border-border py-4 gap-6">
-              <div className="flex justify-between items-center">
-                <h4 className="font-semibold">Total</h4>
-                <p className="text-electric-blue font-semibold text-lg">
-                  N868.00
-                </p>
-              </div>
-              <a href="/" className="btn primary-btn flex gap-2 items-center font-medium">
-                {" "}
-                <Lock size={14} />
-                Proceed to Checkout
-              </a>
-            </div>
-          </div>
+          <OrderSummary payment="Proceed to Checkout" url="/checkout" />
         </div>
       )}
     </section>

@@ -1,9 +1,8 @@
-import AnnouncementBar from "../components/AnnouncementBar"
+
 import CategorySection from "../components/CategorySection"
 import FeaturedProduct from "../components/FeaturedProduct"
 import Hero from "../components/Hero"
-import Navbar from "../components/Navbar"
-
+import NewsLetter from "../components/NewsLetter"
 
 const Home = () => {
   return (
@@ -11,6 +10,7 @@ const Home = () => {
         <Hero/>
         <CategorySection/>
         <FeaturedProduct/>
+        <NewsLetter/>
     </div>
   )
 }

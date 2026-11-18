@@ -1,8 +1,8 @@
 import { Minus, Plus } from "lucide-react";
 
-const QuantitySelector = ({ quantity, onIncrease, onDecrease }) => {
+const QuantitySelector = ({ quantity, onIncrease, onDecrease}) => {
   return (
-    <div className="flex items-center gap-3 border border-border rounded-lg w-fit p-1 ">
+    <div className={`flex items-center md:gap-3 border border-border rounded-lg w-fit p-2 gap-1` }>
       <button
         type="button"
         onClick={onDecrease}

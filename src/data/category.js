@@ -12,19 +12,19 @@ export const categoryData = [
         imgUrl: "/images/accessories.jpg"
     },
     {
-        id: 1,
+        id: 3,
         name: "Beauty & Personal Care",
         description: "Everyday essentials for your self-care routine.",
         imgUrl: "/images/skincare2.jpg"
     },
     {
-        id: 1,
-        name: "Sports & Outdoors",
-        description: "Gear up for your next adventure.",
-        imgUrl: "/images/sport-gear.jpg"
+        id: 4,
+        name: "Fashion",
+        description: "Complete your look with the perfect details.",
+        imgUrl: "/images/products/handbag.jpg"
     },
     {
-        id: 1,
+        id: 5,
         name: "Home & Living",
         description: "Make your space feel like home.",
         imgUrl: "/images/decor.jpg"

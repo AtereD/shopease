@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 const Hero = () => {
   return (
-    <section className="grid md:grid-cols-2 grid-cols-1 pl-5 md:pl-8 lg:pb-16 items-center  hero max-w-7xl md:h-screen md:items-start md:pb-12">
+    <section className="w-full grid md:grid-cols-2 grid-cols-1 pl-5 md:pl-8 lg:pb-16 items-center  hero md:h-screen md:items-start md:pb-12" >
         {/* LEFT CONTENT */}
         <div className="flex flex-col gap-6 pt-26  justify-center w-full md:pl-2">
             {/* <p>Discover the difference</p> */}
@@ -16,7 +16,7 @@ const Hero = () => {
         </div>
 
         {/* RIGHT CONTENT */}
-      <div className="lg:pb-10">
+      <div className="lg:pb-10 w-full">
           <img src="/images/hero-img.png" alt="A collection of carefully selected lifestyle products" className="object-cover h-full w-full "/>
         </div>
     </section>
