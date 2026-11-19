@@ -27,7 +27,7 @@ const Hero = () => {
       {/* RIGHT CONTENT */}
       <div className="lg:pb-10 w-full hidden md:block">
         <img
-          src="/images/hero-img.png"
+          src="/images/hero-img.webp"
           alt="A collection of carefully selected lifestyle products"
           className="object-cover h-full w-full md:h-150 lg:h-187.5 "
         />

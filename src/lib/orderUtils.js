@@ -1,3 +1,4 @@
+
 export const calculateOrderTotals = (items) => {
   const subtotal = items.reduce((total, item) => {
     return total + item.price * item.quantity;

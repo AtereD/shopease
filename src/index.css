@@ -55,7 +55,7 @@ h2 {
         rgba(13, 13, 13, 0.90),
         rgba(7, 7, 7, 0.76)
       ),
-      url("/images/hero-img.png");
+      url("/images/hero-img.webp");
 
     background-size: cover;
     background-position: 70%;

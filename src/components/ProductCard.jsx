@@ -8,24 +8,24 @@ import { Link } from "react-router-dom";
 const ProductCard = ({ product }) => {
   const { cartItems, addToCart, updateQuantity, removeFromCart } =
     useContext(CartContext);
-    const { wishListItems, toggleWishlist } = useContext(WishlistContext);
-    const isWishlisted = wishListItems.some(
-  (item) => item.id === product.id
-);
+  const { wishListItems, toggleWishlist } = useContext(WishlistContext);
+  const isWishlisted = wishListItems.some((item) => item.id === product.id);
   const cartItem = cartItems.find((item) => item.id === product.id);
   return (
     <div className="rounded-2xl overflow-hidden border border-border flex flex-col h-full">
       <div className="relative lg:overflow-hidden lg:h-60 h-45">
         <Link
-  to={`/product/${product.id}`}
-  className="block h-full overflow-hidden"
->
-  <img
-    src={product.imgUrl}
-    alt={product.name}
-    className="h-full w-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-  />
-</Link>
+          to={`/product/${product.id}`}
+          className="block h-full overflow-hidden"
+        >
+          <img
+            src={product.imgUrl}
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
+          />
+        </Link>
 
         {/* Badge */}
         {product.badge && (
@@ -34,20 +34,18 @@ const ProductCard = ({ product }) => {
           </div>
         )}
         <button
-  type="button"
-  onClick={() => toggleWishlist(product)}
-  aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-  className="absolute top-3 right-3 rounded-full bg-white p-2 shadow-sm transition-all duration-200 hover:scale-110"
->
-  <Heart
-    size={18}
-    className={
-      isWishlisted
-        ? "fill-red-500 text-red-500"
-        : "text-red-500"
-    }
-  />
-</button>
+          type="button"
+          onClick={() => toggleWishlist(product)}
+          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+          className="absolute top-3 right-3 rounded-full bg-white p-2 shadow-sm transition-all duration-200 hover:scale-110"
+        >
+          <Heart
+            size={18}
+            className={
+              isWishlisted ? "fill-red-500 text-red-500" : "text-red-500"
+            }
+          />
+        </button>
       </div>
 
       {/* Product Details */}
