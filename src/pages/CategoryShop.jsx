@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { categories } from "../data/categories";
 import { productData } from "../data/products";
 import ProductCard from "../components/ProductCard";
+import { ChevronRight } from "lucide-react";
 
 const CategoryShop = () => {
   const [sortOption, setSortOption] = useState("default");
@@ -54,6 +55,18 @@ const CategoryShop = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-5 md:px-8 pb-12 pt-8">
+          {/* BREADCRUMB */}
+<div className="flex items-center gap-2 text-sm text-muted-grey mb-8">
+  <Link to="/" className="hover:text-electric-blue">
+    Home
+  </Link>
+  <ChevronRight size={16} />
+  <Link to="/shop" className="hover:text-electric-blue">
+    Categories
+  </Link>
+  <ChevronRight size={16} />
+  <span className="text-charcoal">{category.name}</span>
+</div>
       {/* CATEGORY HEADER */}
       <h1 className="text-3xl font-bold font-heading text-charcoal">
         {category.name}
