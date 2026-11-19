@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { toast } from "react-toastify";
 
@@ -8,6 +8,9 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const location = useLocation();
+
+const from = location.state?.from?.pathname || "/";
 
   const navigate = useNavigate();
 
@@ -31,7 +34,7 @@ const SignIn = () => {
 
   if (data.user) {
     toast.success("Welcome back!");
-    navigate("/");
+    navigate(from, { replace: true });
   }
 };
 
@@ -88,6 +91,14 @@ const SignIn = () => {
               required
               className="w-full border border-border rounded-lg px-4 py-3 outline-none focus:border-electric-blue"
             />
+            <div className="flex justify-end">
+  <Link
+    to="/forgot-password"
+    className="text-sm text-electric-blue hover:underline"
+  >
+    Forgot Password?
+  </Link>
+</div>
           </div>
 
           {error && (

@@ -2,16 +2,12 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Lock } from "lucide-react";
 import { CartContext } from "../context/CartContext";
+import { calculateOrderTotals } from "../lib/orderUtils";
 
 const OrderSummary = ({ payment, url, isCheckout = false }) => {
   const { cartItems } = useContext(CartContext);
-  const subtotal = cartItems.reduce((total, item) => {
-    return total + item.price * item.quantity;
-  }, 0);
-
-  const shipping = subtotal >= 100000 ? 0 : 2500;
-  const total = shipping + subtotal;
-  const amountToFreeShipping = 100000 - subtotal;
+  const { subtotal, shipping, total } = calculateOrderTotals(cartItems);
+const amountToFreeShipping = 100000 - subtotal;
 
   return (
     <div className="border border-border rounded-xl px-5 py-5 h-fit bg-white">

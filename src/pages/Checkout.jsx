@@ -4,28 +4,57 @@ import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import OrderSummary from "../components/OrderSummary";
 import { states } from "../data/states";
+import { calculateOrderTotals } from "../lib/orderUtils";
 
 const Checkout = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
-
-  const [paymentMethod, setPaymentMethod] = useState("card");
+   const [paymentMethod, setPaymentMethod] = useState("card");
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    code: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    console.log("Checkout submitted!");
-    console.log("Selected payment method:", paymentMethod);
-
-    setCartItems([]);
-
-    navigate("/order-confirmation", {
-      state: { orderCode },
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const { subtotal, shipping, total } = calculateOrderTotals(cartItems);
+
+  const orderDetails = {
+    orderCode,
+    customer: formData,
+    items: cartItems,
+    paymentMethod,
+    subtotal,
+    shipping,
+    total,
+  };
+
+  console.log("Order details:", orderDetails);
+
+  navigate("/order-confirmation", {
+    state: { order: orderDetails },
+  });
+
+  // setCartItems([]);
+};
 
   const orderCode = `SE-${Date.now().toString().slice(-8)}`;
 
-   useEffect(() => {
+  useEffect(() => {
     if (cartItems.length === 0) {
       navigate("/cart", { replace: true });
     }
@@ -68,6 +97,9 @@ const Checkout = () => {
                   id="fullName"
                   type="text"
                   required
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
                   placeholder="Enter your full name"
                   className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue"
                 />
@@ -80,6 +112,9 @@ const Checkout = () => {
                   id="email"
                   type="email"
                   required
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email address"
                   className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue"
                 />
@@ -92,6 +127,9 @@ const Checkout = () => {
                   id="phone"
                   type="tel"
                   required
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   placeholder="Enter your phone number"
                   className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue"
                 />
@@ -111,6 +149,9 @@ const Checkout = () => {
                     id="address"
                     type="text"
                     required
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
                     placeholder="Enter your address"
                     className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue"
                   />
@@ -123,6 +164,9 @@ const Checkout = () => {
                     id="city"
                     type="text"
                     required
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
                     placeholder="Enter your city"
                     className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue"
                   />
@@ -136,8 +180,10 @@ const Checkout = () => {
 
                   <select
                     id="state"
-                    defaultValue=""
                     required
+                    name="state"
+                    value={formData.state}
+                    onChange={handleChange}
                     className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue text-muted-grey py-[9px]"
                   >
                     <option value="" disabled>
@@ -157,6 +203,9 @@ const Checkout = () => {
                   <input
                     id="code"
                     type="text"
+                    name="code"
+                    value={formData.code}
+                    onChange={handleChange}
                     placeholder="Enter your postal code"
                     className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue"
                   />

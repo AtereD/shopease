@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
 
 const shopLink = [
-  { name: "New Arrivals", to: "new-arrivals" },
+  { name: "New Arrivals", to: "/" },
   { name: "Electronics", to: "/electronics" },
   { name: "Fashion", to: "/fashion" },
-  { name: "Home & Living", to: "/home" },
+  { name: "Home & Living", to: "/home-living" },
   { name: "Beauty & Care", to: "/beauty" },
+  { name: "Accessories", to: "/accessories" },
 ];
 
 const helpLink = [
@@ -54,7 +55,7 @@ const Footer = () => {
         <div className="flex flex-col gap-3 text-sm">
             <p className="font-bold text-white">SHOP</p>
             {shopLink.map((shop)=>(
-                <NavLink to={shop.to} key={shop.id} className="hover:text-electric-blue" >
+                <NavLink to={`/category/${shop.to}`} key={shop.id} className="hover:text-electric-blue" >
                     {shop.name}
                 </NavLink>
             ))}

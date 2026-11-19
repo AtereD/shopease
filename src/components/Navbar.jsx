@@ -1,8 +1,11 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { WishlistContext } from "../context/WishlistContext";
+import { AuthContext } from "../context/AuthContext";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { productData } from "../data/products";
-import { Heart, Search, ShoppingCart, Menu, X } from "lucide-react";
+import { Heart, Search, ShoppingCart, Menu, X, UserRound } from "lucide-react";
+import { toast } from "react-toastify";
 
 const navLink = [
   { name: "Home", to: "/" },
@@ -10,18 +13,22 @@ const navLink = [
   { name: "Fashion", to: "/category/fashion" },
   { name: "Home & Living", to: "/category/home-living" },
   { name: "Beauty & Personal Care", to: "/category/beauty" },
-  { name: "Accessories", to: "/category/accessories" }
+  { name: "Accessories", to: "/category/accessories" },
 ];
 
 const iconLink = [
-  { icon: <Heart />, url: "/wishlist", label: "Wishlist" },
+  { icon: <Heart  size={20}/>, url: "/wishlist", label: "Wishlist" },
   { icon: "cart", url: "/cart", label: "Shopping cart" },
 ];
 
 const Navbar = () => {
+  const { user, loading, signOut } = useContext(AuthContext);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { cartItems } = useContext(CartContext);
+  const { wishListItems } = useContext(WishlistContext);
+  const wishlistCount = wishListItems.length;
   const cartCount = cartItems.reduce((total, item) => {
     return total + item.quantity;
   }, 0);
@@ -38,9 +45,22 @@ const Navbar = () => {
     );
   });
 
+  const handleLogout = async () => {
+    const { error } = await signOut();
+
+    if (error) {
+      toast.error("Unable to log out. Please try again.");
+      return;
+    }
+
+    setIsAccountOpen(false);
+    toast.success("You have logged out successfully!");
+    navigate("/");
+  };
+
   return (
-    <header className="relative">
-      <nav className=" flex justify-between items-center px-3 sm:px-5 md:px-8 py-4 border-b border-border w-full min-w-0">
+    <header className="relative px-3 sm:px-5 md:px-8 py-4 border-b border-border">
+      <nav className=" flex justify-between items-center  w-full min-w-0">
         {/* LOGO */}
         <div className="text-center shrink-0">
           <NavLink to="/">
@@ -70,7 +90,7 @@ const Navbar = () => {
         </div>
 
         {/* ICONS */}
-        <div className="flex items-center gap-2 sm:gap-3 text-charcoal shrink-0">
+        <div className="flex items-center gap-2  text-charcoal shrink-0">
           {/* search btn */}
           <button
             type="button"
@@ -82,7 +102,7 @@ const Navbar = () => {
             aria-expanded={isSearchOpen}
             className="transition-colors duration-200 hover:text-electric-blue"
           >
-            <Search size={22} />
+            <Search size={20} />
           </button>
           {iconLink.map((icon) => (
             <NavLink
@@ -93,21 +113,69 @@ const Navbar = () => {
             >
               {icon.icon === "cart" ? (
                 <div className="relative">
-                  <ShoppingCart />
+                  <ShoppingCart size={20}/>
                   {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-electric-blue text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                       {cartCount}
                     </span>
                   )}
                 </div>
               ) : (
-                icon.icon
+                <div className="relative">
+                  {icon.icon}
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </div>
               )}
             </NavLink>
           ))}
 
           {/* Sign in btn*/}
-          <Link to="/signup" className="btn primary-btn hidden sm:block">Sign In</Link>
+          {!loading && (
+            <div className="relative hidden lg:block">
+              {user ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setIsAccountOpen(!isAccountOpen)}
+                    className="flex items-center justify-center w-8 h-8 rounded-full border border-border hover:bg-soft-grey transition-colors"
+                    aria-label="My account"
+                    aria-expanded={isAccountOpen}
+                  >
+                    <UserRound size={18} className="text-electric-blue" />
+                  </button>
+
+                  {isAccountOpen && (
+                    <div className="absolute right-0 top-full mt-3 w-52 bg-white border border-border rounded-xl shadow-lg p-2 z-50">
+                      <div className="px-3 py-2 border-b border-border">
+                        <p className="text-sm font-medium text-charcoal">
+                          {user.user_metadata?.full_name || "My Account"}
+                        </p>
+                        <p className="text-xs text-muted-grey truncate">
+                          {user.email}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-soft-grey rounded-lg"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link to="/signin" className="btn primary-btn">
+                  Sign In
+                </Link>
+              )}
+            </div>
+          )}
 
           {/* Menu Btn */}
           <button
@@ -120,7 +188,7 @@ const Navbar = () => {
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={23} /> : <Menu size={23} />}
           </button>
         </div>
       </nav>
@@ -193,10 +261,45 @@ const Navbar = () => {
       )}
 
       {/* MOBILE NAVIGATION */}
-      <div className="lg:hidden">
+      <div className="lg:hidden w-full">
         {isOpen && (
           <div className="absolute top-full left-0 w-full bg-white border-b border-border p-5 shadow-md lg:hidden z-50">
             <div className="flex flex-col gap-5">
+              {!loading &&
+                (user ? (
+                  <div className="border-b border-border pt-2">
+                    <div className="flex items-center gap-3  mb-3">
+                      <div className="w-10 h-10 rounded-full bg-soft-grey flex items-center justify-center">
+                        <UserRound size={20} className="text-electric-blue" />
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-charcoal">
+                          {user.user_metadata?.full_name || "My Account"}
+                        </p>
+                        <p className="text-xs text-muted-grey truncate">
+                          {user.email}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="w-full text-left pl-13 py-3 text-sm text-red-500 hover:bg-red-50 rounded-lg"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/signin"
+                    onClick={() => setIsOpen(false)}
+                    className="btn primary-btn w-full text-center"
+                  >
+                    Sign In
+                  </Link>
+                ))}
               {navLink.map((nav) => (
                 <NavLink
                   key={nav.name}
@@ -213,7 +316,6 @@ const Navbar = () => {
                   {nav.name}
                 </NavLink>
               ))}
-              <button className="btn primary-btn sm:hidden">Sign In</button>
             </div>
           </div>
         )}
