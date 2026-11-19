@@ -184,7 +184,7 @@ const Checkout = () => {
                     name="state"
                     value={formData.state}
                     onChange={handleChange}
-                    className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue text-muted-grey py-[9px]"
+                    className="w-full border border-border rounded-lg px-4  outline-none focus:border-electric-blue text-muted-grey py-2.25"
                   >
                     <option value="" disabled>
                       Select your state

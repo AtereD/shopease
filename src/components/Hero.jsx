@@ -29,7 +29,7 @@ const Hero = () => {
         <img
           src="/images/hero-img.png"
           alt="A collection of carefully selected lifestyle products"
-          className="object-cover h-full w-full md:h-[600px] lg:h-[750px] "
+          className="object-cover h-full w-full md:h-150 lg:h-187.5 "
         />
       </div>
     </section>
