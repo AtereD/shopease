@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Lock } from "lucide-react";
 import { CartContext } from "../context/CartContext";
-import calculateOrderTotals from "../lib/orderUtils";
+import{ calculateOrderTotals } from "../lib/orderUtils";
 
 const OrderSummary = ({ payment, url, isCheckout = false }) => {
   const { cartItems } = useContext(CartContext);
